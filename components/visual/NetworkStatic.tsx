@@ -23,27 +23,40 @@ const NODES = 42;
 const W = 800;
 const H = 400;
 
-export default function NetworkStatic({ className = "" }: { className?: string }) {
+export default function NetworkStatic({
+  className = "",
+  strip = false,
+}: {
+  className?: string;
+  /** Slim 40px band (mobile hero strip): wide/short viewBox so the
+   *  network reads clearly instead of being cropped to a sparse band. */
+  strip?: boolean;
+}) {
+  const vbH = strip ? 80 : H;
   const { nodes, edges } = useMemo(() => {
     const rand = mulberry32(91706);
     const nodes = Array.from({ length: NODES }, () => ({
       x: 40 + rand() * (W - 80),
-      y: 30 + rand() * (H - 60),
+      y: strip
+        ? 10 + rand() * (vbH - 20)
+        : 30 + rand() * (H - 60),
     }));
     const edges: Array<[number, number]> = [];
+    const maxDist = strip ? 150 : 110;
     for (let i = 0; i < NODES && edges.length < 48; i++) {
       for (let j = i + 1; j < NODES && edges.length < 48; j++) {
         const dx = nodes[i].x - nodes[j].x;
         const dy = nodes[i].y - nodes[j].y;
-        if (Math.sqrt(dx * dx + dy * dy) < 110) edges.push([i, j]);
+        if (Math.sqrt(dx * dx + dy * dy) < maxDist) edges.push([i, j]);
       }
     }
     return { nodes, edges };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [strip]);
 
   return (
     <svg
-      viewBox={`0 0 ${W} ${H}`}
+      viewBox={`0 0 ${W} ${vbH}`}
       preserveAspectRatio="xMidYMid slice"
       className={className}
       aria-hidden="true"

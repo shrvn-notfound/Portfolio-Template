@@ -47,14 +47,14 @@ function subscribe(callback: () => void): () => void {
   };
 }
 
-export default function NetworkBackground() {
+export default function NetworkBackground({ strip = false }: { strip?: boolean }) {
   const reducedMotion = usePrefersReducedMotion();
   const mode = useSyncExternalStore(subscribe, getSnapshot, () => "static");
 
   // §5 reduced motion: static geometry, no drift, no rotation — everywhere.
   const content =
     reducedMotion || mode === "static" ? (
-      <NetworkStatic className="h-full w-full" />
+      <NetworkStatic className="h-full w-full" strip={strip} />
     ) : (
       <NetworkCanvas reducedMotion={false} />
     );

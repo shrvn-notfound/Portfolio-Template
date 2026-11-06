@@ -26,7 +26,7 @@ export default function Hero() {
     >
       {/* Mobile: slim 40px static strip — §4.2 / §7 */}
       <div className="h-10 w-full border-b border-edge lg:hidden">
-        <NetworkBackground />
+        <NetworkBackground strip />
       </div>
 
       <div className="container-editorial lg:grid lg:min-h-[min(100vh,900px)] lg:grid-cols-[55fr_45fr]">
