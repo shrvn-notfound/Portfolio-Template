@@ -61,7 +61,7 @@ programming, data structures, computer networks, and operating systems.`,
     {
       label: "Professional Goals",
       title: "Cybersecurity engineer",
-      body: "Roadmap: CompTIA Security+ → eJPT → OSCP (all planned, none claimed yet). Goal: an entry-level security role where I can keep learning on real infrastructure.",
+      body: "Roadmap: CompTIA Security+ → eJPT → OSCP (all planned, none claimed yet). Goal: a security engineering role — internship, graduate program, or full-time — where I can keep learning on real infrastructure.",
     },
   ],
 };
@@ -171,7 +171,7 @@ export const learningJourney = {
 
 export const contact = {
   heading: "Get in touch",
-  body: "Open to internships, security study groups, and conversations about the field. If you're hiring or mentoring, I'd like to hear from you.",
+  body: "Open to internships, entry-level and full-time security roles, collaborative research, CTF teams, and study groups. Whether you're hiring, mentoring, or building something secure — I'd like to hear from you.",
   email: site.email,
   github: site.github,
   linkedin: site.linkedin,

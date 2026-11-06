@@ -6,13 +6,16 @@
  * typographic content right 45%.
  * Mobile: canvas collapses to a slim 40px static strip; content stacks,
  * buttons go full-width.
+ *
+ * Entrance (§6 spirit): staggered line-mask reveal for the headline and
+ * subtitle, fade-up for supporting blocks, scaleX divider draw.
  */
 
 import { m } from "framer-motion";
 import NetworkBackground from "@/components/visual/NetworkBackground";
 import { ButtonLink } from "@/components/ui/Button";
 import { hero } from "@/data/content";
-import { EASE_EDITORIAL } from "@/lib/motion";
+import { fadeItem, maskContainer, maskLine } from "@/lib/motion";
 
 export default function Hero() {
   return (
@@ -39,45 +42,69 @@ export default function Hero() {
 
         {/* Content — right 45% */}
         <div className="flex flex-col justify-center py-16 md:py-24 lg:border-l lg:border-edge lg:py-0 lg:pl-16">
-          <m.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: EASE_EDITORIAL }}
-          >
-            <p className="mb-4 font-mono text-body-lg text-ink-secondary">
+          <m.div variants={maskContainer} initial="hidden" animate="show">
+            <m.p
+              variants={fadeItem}
+              className="mb-4 font-mono text-body-lg text-ink-secondary"
+            >
               {hero.greeting}
-            </p>
+            </m.p>
 
+            {/* Headline: line-mask reveal (h1 preserved for semantics) */}
             <h1 className="text-[32px] font-bold leading-[1.1] text-ink md:text-[40px] lg:text-h1">
-              {hero.headline}
+              <span className="block overflow-hidden">
+                <m.span variants={maskLine} className="block">
+                  {hero.headline}
+                </m.span>
+              </span>
             </h1>
 
-            <p className="mt-6 text-body-lg text-ink">
+            {/* Subtitle: one masked line each */}
+            <span className="mt-6 block">
               {hero.subtitle.map((line) => (
-                <span key={line} className="block">
-                  {line}
+                <span key={line} className="block overflow-hidden">
+                  <m.span
+                    variants={maskLine}
+                    className="block text-body-lg text-ink"
+                  >
+                    {line}
+                  </m.span>
                 </span>
               ))}
-            </p>
+            </span>
 
-            <hr
+            {/* Divider draws in */}
+            <m.div
               aria-hidden="true"
-              className="my-8 h-px border-0 bg-accent/40"
+              variants={{
+                hidden: { scaleX: 0, opacity: 0 },
+                show: {
+                  scaleX: 1,
+                  opacity: 1,
+                  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              className="my-8 h-px origin-left bg-accent/40"
             />
 
-            <p className="font-mono text-body-sm text-ink-secondary">
-              {hero.meta.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </p>
+            <m.div variants={fadeItem}>
+              <p className="font-mono text-body-sm text-ink-secondary">
+                {hero.meta.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </p>
 
-            <p className="measure-body mt-6 text-body-sm text-ink-secondary">
-              {hero.description}
-            </p>
+              <p className="measure-body mt-6 text-body-sm text-ink-secondary">
+                {hero.description}
+              </p>
+            </m.div>
 
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:gap-6">
+            <m.div
+              variants={fadeItem}
+              className="mt-10 flex flex-col gap-4 sm:flex-row sm:gap-6"
+            >
               <ButtonLink
                 href={hero.primaryCta.href}
                 variant="primary"
@@ -92,9 +119,12 @@ export default function Hero() {
               >
                 {hero.secondaryCta.label}
               </ButtonLink>
-            </div>
+            </m.div>
 
-            <p className="mt-10 font-mono text-label text-ink-secondary">
+            <m.p
+              variants={fadeItem}
+              className="mt-10 font-mono text-label text-ink-secondary"
+            >
               {hero.socials.map((social, i) => (
                 <span key={social.label}>
                   <a
@@ -112,7 +142,7 @@ export default function Hero() {
                   )}
                 </span>
               ))}
-            </p>
+            </m.p>
           </m.div>
         </div>
       </div>

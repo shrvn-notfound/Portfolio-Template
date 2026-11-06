@@ -26,7 +26,7 @@ export default function Certifications() {
             key={cert.name}
             {...sectionReveal}
             transition={{ ...sectionReveal.transition, delay: i * 0.05 }}
-            className="grid grid-cols-1 gap-2 border border-edge bg-void px-6 py-5 sm:grid-cols-[2fr_1fr_1fr_auto] sm:items-baseline sm:gap-6 [&+&]:-mt-px"
+            className="grid grid-cols-1 gap-2 border border-edge bg-void px-6 py-5 transition-colors duration-150 ease-out hover:bg-surface-hover sm:grid-cols-[2fr_1fr_1fr_auto] sm:items-baseline sm:gap-6 [&+&]:-mt-px"
           >
             <h3 className="text-body font-semibold text-ink">{cert.name}</h3>
             <span className="font-mono text-caption text-ink-secondary">

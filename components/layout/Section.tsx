@@ -9,7 +9,7 @@
 
 import type { ReactNode } from "react";
 import { m } from "framer-motion";
-import { sectionReveal } from "@/lib/motion";
+import { EASE_EDITORIAL, sectionReveal } from "@/lib/motion";
 
 interface SectionProps {
   id: string;
@@ -43,6 +43,15 @@ export default function Section({ id, index, kicker, title, children }: SectionP
           >
             {title}
           </h2>
+          {/* Accent underline draws in after the title lands */}
+          <m.div
+            aria-hidden="true"
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: EASE_EDITORIAL, delay: 0.2 }}
+            className="mt-4 h-px w-24 origin-left bg-accent"
+          />
         </m.header>
 
         {children}

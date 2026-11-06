@@ -9,7 +9,7 @@
 import { m } from "framer-motion";
 import Section from "@/components/layout/Section";
 import { education } from "@/data/content";
-import { childFadeUp, staggerChildren } from "@/lib/motion";
+import { childFadeUp, staggerChildren, EASE_EDITORIAL } from "@/lib/motion";
 
 export default function Education() {
   return (
@@ -19,10 +19,14 @@ export default function Education() {
         {...staggerChildren}
         className="relative hidden gap-12 md:flex md:items-start"
       >
-        {/* the timeline rail */}
-        <div
+        {/* the timeline rail — draws in on scroll */}
+        <m.div
           aria-hidden="true"
-          className="absolute left-0 right-0 top-[52px] h-px bg-edge"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: EASE_EDITORIAL }}
+          className="absolute left-0 right-0 top-[52px] h-px origin-left bg-edge"
         />
         {education.map((entry) => (
           <m.li key={entry.degree} variants={childFadeUp} className="relative flex-1 pt-0">

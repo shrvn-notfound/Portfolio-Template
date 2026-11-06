@@ -18,7 +18,6 @@ function SkillRow({ skill }: { skill: Skill }) {
   return (
     <li
       tabIndex={0}
-      aria-describedby={undefined}
       className="group relative flex items-baseline justify-between gap-4 border-b border-edge-muted px-4 py-2.5 transition-colors duration-150 ease-out last:border-b-0 hover:bg-surface-hover focus-visible:bg-surface-hover focus-visible:outline-2 focus-visible:outline-accent"
     >
       <span className="text-body-sm text-ink">{skill.name}</span>
@@ -27,7 +26,7 @@ function SkillRow({ skill }: { skill: Skill }) {
       {/* One-line tooltip — §4.5 interaction */}
       <span
         role="tooltip"
-        className="pointer-events-none absolute left-4 top-full z-10 mt-1 hidden border border-edge bg-void px-3 py-1.5 font-mono text-caption text-ink-secondary group-hover:block group-focus-visible:block"
+        className="pointer-events-none absolute left-4 top-full z-10 mt-1 translate-y-1 border border-edge bg-void px-3 py-1.5 font-mono text-caption text-ink-secondary opacity-0 transition-[opacity,translate] duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 invisible group-hover:visible group-focus-visible:visible"
       >
         {skill.name} → {skill.detail}
       </span>

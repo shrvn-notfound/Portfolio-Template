@@ -9,7 +9,7 @@ export const EASE_EDITORIAL = [0.16, 1, 0.3, 1] as const;
 
 /** Section reveal on scroll — 400ms, no bounce (§6) */
 export const sectionReveal = {
-  initial: { opacity: 0, y: 16 },
+  initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-80px" },
   transition: { duration: 0.4, ease: EASE_EDITORIAL },
@@ -22,16 +22,39 @@ export const staggerChildren = {
   viewport: { once: true, margin: "-80px" },
   variants: {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.06 } },
+    visible: { transition: { staggerChildren: 0.08 } },
   },
 } as const;
 
 export const childFadeUp = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: EASE_EDITORIAL },
+    transition: { duration: 0.45, ease: EASE_EDITORIAL },
+  },
+} as const;
+
+/** Line-mask reveal — editorial headline entrance (§6 spirit) */
+export const maskContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+} as const;
+
+export const maskLine = {
+  hidden: { y: "115%" },
+  show: {
+    y: "0%",
+    transition: { duration: 0.6, ease: EASE_EDITORIAL },
+  },
+} as const;
+
+export const fadeItem = {
+  hidden: { opacity: 0, y: 14 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: EASE_EDITORIAL },
   },
 } as const;
 

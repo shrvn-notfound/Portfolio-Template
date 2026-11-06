@@ -15,6 +15,7 @@
 
 import dynamic from "next/dynamic";
 import { useSyncExternalStore } from "react";
+import { m } from "framer-motion";
 import Loader from "@/components/visual/Loader";
 import NetworkStatic from "@/components/visual/NetworkStatic";
 import { supportsWebGL, usePrefersReducedMotion } from "@/lib/a11y";
@@ -51,9 +52,22 @@ export default function NetworkBackground() {
   const mode = useSyncExternalStore(subscribe, getSnapshot, () => "static");
 
   // §5 reduced motion: static geometry, no drift, no rotation — everywhere.
-  if (reducedMotion || mode === "static") {
-    return <NetworkStatic className="h-full w-full" />;
-  }
+  const content =
+    reducedMotion || mode === "static" ? (
+      <NetworkStatic className="h-full w-full" />
+    ) : (
+      <NetworkCanvas reducedMotion={false} />
+    );
 
-  return <NetworkCanvas reducedMotion={false} />;
+  // Fade the visual in once mounted so the canvas never pops (§6: no flash).
+  return (
+    <m.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="h-full w-full"
+    >
+      {content}
+    </m.div>
+  );
 }

@@ -32,7 +32,7 @@ export default function LearningJourney() {
           <m.li
             key={item.topic}
             variants={childFadeUp}
-            className="flex flex-1 flex-col gap-3 border border-edge bg-void px-6 py-5"
+            className="flex flex-1 flex-col gap-3 border border-edge bg-void px-6 py-5 transition-[background-color,translate] duration-150 ease-out hover:-translate-y-px hover:bg-surface-hover"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="font-mono text-body-sm font-bold text-ink">

@@ -9,6 +9,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { m, useScroll } from "framer-motion";
 import { nav, site } from "@/data/content";
 
 const SECTION_IDS = [
@@ -25,6 +26,7 @@ const SECTION_IDS = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("top");
+  const { scrollYProgress } = useScroll();
 
   // Scroll-spy: highlight the nav item for the section in view.
   useEffect(() => {
@@ -68,7 +70,7 @@ export default function Header() {
   };
 
   return (
-    <header className="z-50 border-b border-edge bg-void md:sticky md:top-0">
+    <header className="relative z-50 border-b border-edge bg-void md:sticky md:top-0">
       <div className="container-editorial flex h-16 items-center justify-between gap-6 md:h-18">
         <Link
           href="#top"
@@ -119,6 +121,13 @@ export default function Header() {
           <span aria-hidden="true" className="h-px w-6 bg-ink" />
         </button>
       </div>
+
+      {/* Scroll progress — 2px accent line, scroll-driven (no autonomous motion) */}
+      <m.div
+        aria-hidden="true"
+        style={{ scaleX: scrollYProgress }}
+        className="absolute bottom-[-1px] left-0 right-0 h-0.5 origin-left bg-accent"
+      />
 
       {/* Mobile overlay */}
       {open && (
